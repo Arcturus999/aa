@@ -1,0 +1,21 @@
+---
+- name: Add DataStax repository
+  apt_repository: repo='deb http://debian.datastax.com/community stable main' state=present
+  
+- name: Add the DataStax repository key to aptitude trusted keys
+  apt_key: url=http://debian.datastax.com/debian/repo_key state=present
+
+- name: Install DataStax OpsCenter
+  apt: name=opscenter update_cache=yes
+  
+- name: Deploy configuration
+  template: src=opscenterd.conf.j2 dest=/etc/opscenter/opscenterd.conf
+
+- name: Make sure config folder exists
+  file: path=/etc/opscenter/clusters state=directory
+
+- name: Deploy pre-configured cluster configuration
+  template: "src=cluster_config.conf.j2 dest=/etc/opscenter/clusters/{{ cluster_name }}.conf mode=600 owner=root group=root"
+
+- name: (Re)start OpsCenter
+  service: name=opscenterd state=restarted

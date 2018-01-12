@@ -1,0 +1,24 @@
+
+key: AKIAJSKOTRRFN6RO3UDQ
+secret: 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
+keyname: aq
+keypath: /home/arcturus/Desktop/aa/aq.pem
+node_name_prefix: no
+cluster_name: AWSCluster
+cluster_username: awstest
+cluster_password: toor
+datacenters:
+  -
+    region: us-east-1
+    number_of_nodes: 2
+    instance_type: t2.medium 
+    ami: ami-a04529b6
+    security_group:  launch-wizard-1
+
+opscenter:
+  node_name: opscenter
+  region: us-east-1
+  instance_type: t2.medium
+  ami: 	ami-a04529b6
+  security_group: launch-wizard-1
+
